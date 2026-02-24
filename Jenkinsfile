@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'worker-node' }
+    agent { label 'Node-Test-Example' }
 
     environment {
 	AWS_REGION = 'us-east-2'
