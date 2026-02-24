@@ -7,11 +7,11 @@ WORKDIR /app
 # Copiamos solo archivos de dependencias primero para usar cache de Docker
 COPY package*.json ./
 
-# Instalamos dependencias de Node
-RUN npm ci
-
 # Copiamos el resto del código
 COPY . .
+
+#Instalamos dependencias de node
+RUN npm ci
 
 # Ajustamos permisos para ejecutar como usuario no-root
 RUN chown -R node:node /app
