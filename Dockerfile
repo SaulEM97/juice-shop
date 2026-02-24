@@ -1,24 +1,23 @@
-FROM node:22-alpine
+# Imagen oficial de Node.js 22 slim
+FROM node:22-slim
 
-# Create non-root user
-RUN addgroup -g 10001 app && adduser -u 10001 -G app -s /bin/sh -D app
-
+# Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copy only package files first to leverage Docker cache
+# Copiamos solo archivos de dependencias primero para usar cache de Docker
 COPY package*.json ./
 
-# Install dependencies as root
+# Instalamos dependencias de Node
 RUN npm ci
 
-# Copy the rest of the application
+# Copiamos el resto del código
 COPY . .
 
-# Fix permissions so runtime user can write
-RUN chown -R app:app /app
+# Ajustamos permisos para ejecutar como usuario no-root
+RUN chown -R node:node /app
 
-ENV NODE_ENV=production
-EXPOSE 3000
+# Ejecutar la app como usuario seguro
+USER node
 
-USER app
+# Comando principal al iniciar el contenedor
 CMD ["npm", "start"]
