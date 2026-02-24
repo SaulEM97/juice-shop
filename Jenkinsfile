@@ -2,7 +2,8 @@ pipeline {
     agent { label 'worker-node' }
 
     environment {
-        ECR_REPO = "997064792377.dkr.ecr.us-east-2.amazonaws.com/jenkins-library"
+	AWS_REGION = 'us-east-1'
+        ECR_REPO = '997064792377.dkr.ecr.us-east-2.amazonaws.com/jenkins-library'
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
