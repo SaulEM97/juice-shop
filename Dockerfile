@@ -5,9 +5,14 @@ RUN addgroup -g 10001 app && adduser -u 10001 -G app -s /bin/sh -D app
 
 WORKDIR /app
 
-# Copy source and install deps as root
-COPY . .
+# Copy only package files first to leverage Docker cache
+COPY package*.json ./
+
+# Install dependencies as root
 RUN npm ci
+
+# Copy the rest of the application
+COPY . .
 
 # Fix permissions so runtime user can write
 RUN chown -R app:app /app
@@ -17,4 +22,3 @@ EXPOSE 3000
 
 USER app
 CMD ["npm", "start"]
-
