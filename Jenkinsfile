@@ -3,7 +3,7 @@ pipeline {
 
     environment {
 	AWS_REGION = 'us-east-2'
-        ECR_REPO = '997064792377.dkr.ecr.us-east-2.amazonaws.com/jenkins-library'
+        ECR_REPO = "997064792377.dkr.ecr.${AWS_REGION}.amazonaws.com/jenkins-library"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 

@@ -11,7 +11,7 @@ COPY package*.json ./
 COPY . .
 
 #Instalamos dependencias de node
-RUN npm ci
+RUN npm ci --quiet
 
 # Ajustamos permisos para ejecutar como usuario no-root
 RUN chown -R node:node /app
